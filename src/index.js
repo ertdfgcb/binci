@@ -146,6 +146,7 @@ const instance = {
     .then(cfg => {
       // Write the primary command to tmp script
       return fs.writeFileAsync(`${tmpdir}/binci.sh`, cfg.primary.cmd)
+        .then(() => fs.chmodSync(`${tmpdir}/binci.sh`, '755'))
         .then(() => utils.checkOrphans())
         .then(() => instance.startServices(cfg))
         .then(instance.runCommand)
